@@ -6,6 +6,7 @@ import org.junit.Assert
 import org.junit.Test
 
 import ru.scf37.config.ConfigReader
+import ru.scf37.config.impl.str.StringReader;
 import spock.lang.Specification
 
 public class StringReaderTest extends Specification {

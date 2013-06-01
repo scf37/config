@@ -4,6 +4,7 @@ import org.junit.Assert
 import org.junit.Test
 
 import ru.scf37.config.ConfigReader
+import ru.scf37.config.impl.prop.PropertiesAppendingReader;
 import spock.lang.Specification
 
 public class PropertiesAppendingReaderTest extends Specification {

@@ -1,7 +1,7 @@
 package ru.scf37.config;
 
-import ru.scf37.config.impl.PropertiesConfigBuilder;
-import ru.scf37.config.impl.StringConfigBuilder;
+import ru.scf37.config.impl.prop.PropertiesConfigBuilder;
+import ru.scf37.config.impl.str.StringConfigBuilder;
 
 /**
  * Main entry point to Config library.
@@ -18,6 +18,10 @@ public class ConfigFactory {
 	 */
 	public static PropertiesConfigBuilder readPropertiesFrom(String url) {
 		return new PropertiesConfigBuilder().append(url);
+	}
+	
+	public static PropertiesConfigBuilder readSystemProperties() {
+		return new PropertiesConfigBuilder().appendSystemProperties();
 	}
 	
 	/**
