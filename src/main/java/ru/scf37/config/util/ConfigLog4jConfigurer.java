@@ -54,7 +54,7 @@ public class ConfigLog4jConfigurer {
 	}
 	
 	private boolean initLog4j(String application, String version, String environment, String name) {
-		ConfigReader<String> reader = ConfigFactory.readStringFrom("/").build(Charset.forName("UTF-8"));
+		ConfigReader<String> reader = ConfigFactory.readTextFrom("/").build(Charset.forName("UTF-8"));
 		
 		try {
 			String config = reader.read(application, version, environment, name);

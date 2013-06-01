@@ -1,4 +1,4 @@
-package ru.scf37.config.impl.str;
+package ru.scf37.config.impl.text;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,17 +13,17 @@ import org.slf4j.LoggerFactory;
 import ru.scf37.config.ConfigReader;
 import ru.scf37.config.impl.ConfigUtils;
 /**
- * Reads Properties from given input stream readers and merges them by appending
+ * Reads text from given input stream readers and uses first found one
  * 
  * @author scf37
  *
  */
-public class StringReader implements ConfigReader<String> {
+public class TextReader implements ConfigReader<String> {
 	private Logger log = LoggerFactory.getLogger(getClass());
 	private List<ConfigReader<InputStream>> readers;
 	private Charset charset;
 	
-	public StringReader(List<ConfigReader<InputStream>> readers, Charset charset) {
+	public TextReader(List<ConfigReader<InputStream>> readers, Charset charset) {
 		if (readers == null) {
 			throw new IllegalArgumentException("readers cannot be null");
 		}

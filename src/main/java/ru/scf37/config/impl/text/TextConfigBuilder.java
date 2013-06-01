@@ -1,4 +1,4 @@
-package ru.scf37.config.impl;
+package ru.scf37.config.impl.text;
 
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.scf37.config.ConfigReader;
+import ru.scf37.config.impl.UrlConfigReader;
 /**
  * Builder for String configuration.
  * <p/>
@@ -14,10 +15,10 @@ import ru.scf37.config.ConfigReader;
  * @author scf37
  *
  */
-public class StringConfigBuilder {
+public class TextConfigBuilder {
 	private List<ConfigReader<InputStream>> readers = new ArrayList<ConfigReader<InputStream>>();
 	
-	public StringConfigBuilder() {
+	public TextConfigBuilder() {
 	}
 	/**
 	 * Add new configuration source, of lower priority
@@ -25,7 +26,7 @@ public class StringConfigBuilder {
 	 * @param url file:, classpath: or http: url
 	 * @return this builder
 	 */
-	public StringConfigBuilder or(String url) {
+	public TextConfigBuilder or(String url) {
 		readers.add(makeConfigReader(url));
 		return this;
 	}
@@ -40,6 +41,6 @@ public class StringConfigBuilder {
 	 * @return ConfigReader
 	 */
 	public ConfigReader<String> build(Charset charset) {
-		return new StringReader(readers, charset);
+		return new TextReader(readers, charset);
 	}
 }

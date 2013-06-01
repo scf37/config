@@ -1,7 +1,7 @@
 package ru.scf37.config;
 
 import ru.scf37.config.impl.prop.PropertiesConfigBuilder;
-import ru.scf37.config.impl.str.StringConfigBuilder;
+import ru.scf37.config.impl.text.TextConfigBuilder;
 
 /**
  * Main entry point to Config library.
@@ -25,12 +25,12 @@ public class ConfigFactory {
 	}
 	
 	/**
-	 * Factory method to read plain String configuration
+	 * Factory method to read plain text configuration
 	 * 
 	 * @param url Base url to read from. classpath:, file: and http: urls are supported
-	 * @return builder for String config
+	 * @return builder for Text config
 	 */
-	public static StringConfigBuilder readStringFrom(String url) {
-		return new StringConfigBuilder().or(url);
+	public static TextConfigBuilder readTextFrom(String url) {
+		return new TextConfigBuilder().or(url);
 	}
 }
