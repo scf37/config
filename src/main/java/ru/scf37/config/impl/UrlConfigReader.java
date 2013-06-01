@@ -32,6 +32,9 @@ public class UrlConfigReader implements ConfigReader<InputStream> {
 		if (url.endsWith("/")) {
 			url = url.substring(0, url.length() - 1);
 		}
+		if (url.indexOf(':') < 0) {
+			url = "file:" + url;
+		}
 		url = url.replaceAll("\\\\", "/");
 		this.url = url;
 	}
