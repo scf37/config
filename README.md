@@ -16,7 +16,7 @@ Typical usecases
 ================
 
 1. Read java properties for this environment, add some default properties to them
-    and allow to override loaded properties by system properties
+    and allow to override loaded properties by system properties.
 
   ```java  
   ConfigReader<Properties> reader = ConfigFactory.readSystemProperties()
@@ -29,9 +29,9 @@ Typical usecases
   classpath:myenv/my.properties
   ```
 
-2. Use host name as environment name(useful for developers to have their private configuration)
-    Allow to set environment name on startup via system properties
-    Production support wants to keep passwords separated from the app in home directory
+2. Use host name as environment name(useful for developers to have their private configuration).  
+    Allow to set environment name on startup via system properties.  
+    Production support wants to keep passwords separated from the app in home directory.  
 
   ```java  
   EnvironmentNameResolver resolver = new EnvironmentNameResolver();
