@@ -26,7 +26,7 @@ public class TextConfigBuilder {
 	 * @param url file:, classpath: or http: url
 	 * @return this builder
 	 */
-	public TextConfigBuilder or(String url) {
+	public final TextConfigBuilder or(String url) {
 		readers.add(makeConfigReader(url));
 		return this;
 	}
@@ -40,7 +40,7 @@ public class TextConfigBuilder {
 	 * @param charset Charset to be used to convert raw data to String. Can be null (system default)
 	 * @return ConfigReader
 	 */
-	public ConfigReader<String> build(Charset charset) {
+	public final ConfigReader<String> build(Charset charset) {
 		return new TextReader(readers, charset);
 	}
 }

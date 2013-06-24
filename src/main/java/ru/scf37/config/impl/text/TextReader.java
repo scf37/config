@@ -18,7 +18,7 @@ import ru.scf37.config.impl.ConfigUtils;
  * @author scf37
  *
  */
-public class TextReader implements ConfigReader<String> {
+public final class TextReader implements ConfigReader<String> {
 	private Logger log = LoggerFactory.getLogger(getClass());
 	private List<ConfigReader<InputStream>> readers;
 	private Charset charset;

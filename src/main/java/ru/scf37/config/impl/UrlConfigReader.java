@@ -74,7 +74,12 @@ public class UrlConfigReader implements ConfigReader<InputStream> {
 			}
 		}
 	}
-	
+	/**
+	 * Opens URL. This method can be overriden, for example, to support proxies and authorization.
+	 * 
+	 * @param u url to open
+	 * @return input stream or null
+	 */
 	protected InputStream url(URL u) {
 		URLConnection connection = null;
 		try {
@@ -90,7 +95,12 @@ public class UrlConfigReader implements ConfigReader<InputStream> {
 			return null;
 		}
 	}
-
+	/**
+	 * Opens location as classpath location
+	 * 
+	 * @param location location, already strept from classpath: prefix
+	 * @return InputStream or null
+	 */
 	protected InputStream classpathUrl(String location) {
 		if (location.startsWith("/")) {
 			location = location.substring(1);

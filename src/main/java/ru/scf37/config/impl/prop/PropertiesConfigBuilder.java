@@ -30,7 +30,7 @@ public class PropertiesConfigBuilder {
 	 * @param url file:, classpath: or http: url
 	 * @return this builder
 	 */
-	public PropertiesConfigBuilder append(String url) {
+	public final PropertiesConfigBuilder append(String url) {
 		readers.add(makeConfigReader(url));
 		return this;
 	}
@@ -41,7 +41,7 @@ public class PropertiesConfigBuilder {
 	 * 
 	 * @return this builder
 	 */	
-	public PropertiesConfigBuilder appendSystemProperties() {
+	public final PropertiesConfigBuilder appendSystemProperties() {
 		readers.add(makeSystemPropertiesReader());
 		return this;
 	}
@@ -58,7 +58,7 @@ public class PropertiesConfigBuilder {
 	 * 
 	 * @return ConfigReader
 	 */
-	public ConfigReader<Properties> build() {
+	public final ConfigReader<Properties> build() {
 		return new PropertiesAppendingReader(readers);
 	}
 }

@@ -16,11 +16,11 @@ import ru.scf37.config.impl.ConfigUtils;
  * @author scf37
  *
  */
-public class PropertiesAppendingReader implements ConfigReader<Properties> {
+public final class PropertiesAppendingReader implements ConfigReader<Properties> {
 	private Logger log = LoggerFactory.getLogger(getClass());
 	private List<ConfigReader<InputStream>> readers;
 	
-	public PropertiesAppendingReader(List<ConfigReader<InputStream>> readers) {
+	PropertiesAppendingReader(List<ConfigReader<InputStream>> readers) {
 		if (readers == null) {
 			throw new IllegalArgumentException("readers cannot be null");
 		}

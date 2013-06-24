@@ -9,7 +9,10 @@ import ru.scf37.config.impl.text.TextConfigBuilder;
  * @author scf37
  *
  */
-public class ConfigFactory {
+public final class ConfigFactory {
+	private ConfigFactory() {
+	}
+	
 	/**
 	 * Factory method to read configuration of type java.util.Properties.
 	 * 
@@ -17,11 +20,19 @@ public class ConfigFactory {
 	 * @return builder for Properties config
 	 */
 	public static PropertiesConfigBuilder readPropertiesFrom(String url) {
-		return new PropertiesConfigBuilder().append(url);
+		try {
+			return PROP_BUILDER.newInstance().append(url);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public static PropertiesConfigBuilder readSystemProperties() {
-		return new PropertiesConfigBuilder().appendSystemProperties();
+		try {
+			return PROP_BUILDER.newInstance().appendSystemProperties();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	/**
@@ -31,6 +42,26 @@ public class ConfigFactory {
 	 * @return builder for Text config
 	 */
 	public static TextConfigBuilder readTextFrom(String url) {
-		return new TextConfigBuilder().or(url);
+		try {
+			return TEXT_BUILDER.newInstance().or(url);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
+	
+	private static final Class<PropertiesConfigBuilder> PROP_BUILDER;
+	private static final Class<TextConfigBuilder> TEXT_BUILDER;
+	
+	static {
+		try {
+			String propBuilderClass = System.getProperty("ru.scf37.config.prop_builder_class", "ru.scf37.config.impl.prop.PropertiesConfigBuilder");
+			String textBuilderClass = System.getProperty("ru.scf37.config.text_builder_class", "ru.scf37.config.impl.text.TextConfigBuilder");
+			
+			PROP_BUILDER = (Class<PropertiesConfigBuilder>) Class.forName(propBuilderClass);
+			TEXT_BUILDER = (Class<TextConfigBuilder>) Class.forName(textBuilderClass);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 }
