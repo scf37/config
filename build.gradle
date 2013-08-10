@@ -1,0 +1,57 @@
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+
+group = 'ru.scf37.config'
+version = '1.0.0-SNAPSHOT'
+
+description = """config123"""
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+repositories {
+     mavenRepo url: "http://repo.maven.apache.org/maven2"
+}
+
+configurations {
+	provided
+}
+ 
+sourceSets {
+	main.compileClasspath += configurations.provided
+	test.compileClasspath += configurations.provided
+	test.runtimeClasspath += configurations.provided
+}
+eclipse.classpath.plusConfigurations += configurations.provided
+
+sourceSets {
+	test.groovy.srcDirs = ['src/test/java']
+}
+
+dependencies {
+    compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.5'
+    testCompile group: 'org.spockframework', name: 'spock-core', version:'0.7-groovy-2.0'
+    testCompile group: 'cglib', name: 'cglib', version:'2.2.2'
+    testCompile group: 'junit', name: 'junit', version:'4.10'
+    testCompile group: 'org.springframework', name: 'spring-test', version:'3.1.1.RELEASE'
+    testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.1.3'
+    provided(group: 'org.springframework', name: 'spring-core', version:'3.1.1.RELEASE')
+    provided(group: 'org.springframework', name: 'spring-context', version:'3.1.1.RELEASE')
+    provided(group: 'org.apache.tomcat', name: 'tomcat-servlet-api', version:'7.0.2')
+}
+
+def test_total = 0
+test {
+	afterTest { desc, result ->
+		test_total++
+	}
+	doLast {
+		println "${test_total} tests completed"
+	}
+}
+
+

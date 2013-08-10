@@ -1,6 +1,9 @@
 target
+build
+.gradle
 *.class
 .project
 .classpath
 .settings
 rebel.xml
+/bin
