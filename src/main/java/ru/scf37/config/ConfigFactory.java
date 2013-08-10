@@ -49,16 +49,16 @@ public final class ConfigFactory {
 		}
 	}
 	
-	private static final Class<PropertiesConfigBuilder> PROP_BUILDER;
-	private static final Class<TextConfigBuilder> TEXT_BUILDER;
+	private static final Class<? extends PropertiesConfigBuilder> PROP_BUILDER;
+	private static final Class<? extends TextConfigBuilder> TEXT_BUILDER;
 	
 	static {
 		try {
 			String propBuilderClass = System.getProperty("ru.scf37.config.prop_builder_class", "ru.scf37.config.impl.prop.PropertiesConfigBuilder");
 			String textBuilderClass = System.getProperty("ru.scf37.config.text_builder_class", "ru.scf37.config.impl.text.TextConfigBuilder");
 			
-			PROP_BUILDER = (Class<PropertiesConfigBuilder>) Class.forName(propBuilderClass);
-			TEXT_BUILDER = (Class<TextConfigBuilder>) Class.forName(textBuilderClass);
+			PROP_BUILDER = Class.forName(propBuilderClass).asSubclass(PropertiesConfigBuilder.class);
+			TEXT_BUILDER = Class.forName(textBuilderClass).asSubclass(TextConfigBuilder.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
