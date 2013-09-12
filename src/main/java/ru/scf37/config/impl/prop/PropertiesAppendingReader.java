@@ -32,9 +32,15 @@ public final class PropertiesAppendingReader implements ConfigReader<Properties>
 		Properties props = new Properties();
 		boolean found = false;
 		for (ConfigReader<InputStream> r: readers) {
-			found |= append(props, r.read(application, version, environment, name));
-			found |= append(props, r.read(application, version, null, name));
-			found |= append(props, r.read(application, null, null, name));
+			if (environment != null) {
+				found |= append(props, r.read(application, version, environment, name));
+			}
+			if (version != null) {
+				found |= append(props, r.read(application, version, null, name));
+			}
+			if (application != null) {
+				found |= append(props, r.read(application, null, null, name));
+			}
 			found |= append(props, r.read(null, null, null, name));
 		}
 		if (found) {

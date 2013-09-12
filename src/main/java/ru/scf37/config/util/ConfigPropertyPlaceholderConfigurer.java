@@ -19,6 +19,7 @@ import org.springframework.core.env.ConfigurablePropertyResolver;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.web.context.support.ServletContextResource;
 
 import ru.scf37.config.ConfigException;
 import ru.scf37.config.ConfigFactory;
@@ -47,7 +48,7 @@ import ru.scf37.config.impl.ConfigUtils;
 public class ConfigPropertyPlaceholderConfigurer extends PropertySourcesPlaceholderConfigurer implements InitializingBean {
 	private Logger log = LoggerFactory.getLogger(getClass());
 	
-	private List<Resource> resources = new ArrayList<Resource>();
+	private List<String> resources = new ArrayList<String>();
 	
 	private EnvironmentNameResolver environmentNameResolver = new EnvironmentNameResolver();
 	
@@ -93,19 +94,17 @@ public class ConfigPropertyPlaceholderConfigurer extends PropertySourcesPlacehol
 		super.setLocations(resolvedResources.toArray(new Resource[0]));
 	}
 
-	@Override
-	public void setLocations(Resource[] locations) {
-		this.resources = new ArrayList<Resource>(Arrays.asList(locations));
+	public void setLocations(String[] locations) {
+		this.resources = new ArrayList<String>(Arrays.asList(locations));
 	}
 
-	@Override
-	public void setLocation(Resource location) {
-		this.resources = new ArrayList<Resource>(Arrays.asList(new Resource[] { location }));
+	public void setLocation(String location) {
+		this.resources = new ArrayList<String>(Arrays.asList(new String[] { location }));
 	}
 
-	protected List<Resource> resolveEnvironmentConfig(List<Resource> resources) {
+	protected List<Resource> resolveEnvironmentConfig(List<String> resources) {
 		List<Resource> result = new ArrayList<Resource>();
-		for (Resource res : resources) {
+		for (String res : resources) {
 			Resource r = resolve(res);
 			if (r != null) {
 				result.add(r);
@@ -114,9 +113,9 @@ public class ConfigPropertyPlaceholderConfigurer extends PropertySourcesPlacehol
 		return result;
 	}
 
-	protected Resource resolve(Resource res) {
+	protected Resource resolve(String res) {
 		String env = environmentNameResolver.getEnvironmentName();
-		String path = getUrl(res);
+		String path = res;
 
 		try {
 			ConfigReader<Properties> reader = ConfigFactory.readPropertiesFrom(root).build();
@@ -139,6 +138,9 @@ public class ConfigPropertyPlaceholderConfigurer extends PropertySourcesPlacehol
 	private String getUrl(Resource res) {
 		try {
 			if (res instanceof ClassPathResource) {
+				return ((ClassPathResource) res).getPath();
+			}
+			if (res instanceof ServletContextResource) {
 				return ((ClassPathResource) res).getPath();
 			}
 			return res.getURL().toString();
