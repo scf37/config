@@ -1,7 +1,7 @@
 package ru.scf37.config.util;
 
 /**
- * Performs log4j initialization for web applications
+ * Performs log4j2 initialization for web applications
  * 
  * Application name and version can be specified as 
  * configApplicationName and configApplicationVersion parameters in <context-param> tag in web.xml.
@@ -9,11 +9,11 @@ package ru.scf37.config.util;
  * @author scf37
  *
  */
-public class ConfigLog4jInitializationListener extends AbstractConfigLog4jInitializationListener {
+public class ConfigLog4j2InitializationListener extends AbstractConfigLog4jInitializationListener {
 	
 	@Override
 	public AbstractLog4jConfigurer createConfigurer() {
-		return new ConfigLog4jConfigurer();
+		return new ConfigLog4j2Configurer();
 	}
 
 }

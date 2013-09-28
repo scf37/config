@@ -17,9 +17,7 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.ConfigurablePropertyResolver;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.web.context.support.ServletContextResource;
 
 import ru.scf37.config.ConfigException;
 import ru.scf37.config.ConfigFactory;
@@ -133,20 +131,6 @@ public class ConfigPropertyPlaceholderConfigurer extends PropertySourcesPlacehol
 			log.warn("Unable to resolve environment config for {}, error={}", ConfigUtils.formatAddress(application, version, env, path), ex.getMessage());
 		}
 		return null;
-	}
-	
-	private String getUrl(Resource res) {
-		try {
-			if (res instanceof ClassPathResource) {
-				return ((ClassPathResource) res).getPath();
-			}
-			if (res instanceof ServletContextResource) {
-				return ((ClassPathResource) res).getPath();
-			}
-			return res.getURL().toString();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	@Override

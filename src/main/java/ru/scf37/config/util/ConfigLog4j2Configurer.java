@@ -1,13 +1,10 @@
 package ru.scf37.config.util;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
-
-import org.springframework.util.Log4jConfigurer;
 /**
- * Configurator for log4j.
+ * Configurator for log4j2.
  * <p/>
  * This configurator tries to detect current environment via {@link EnvironmentNameResolver}. 
  * It supports both log4j.xml and log4j.properties configuration files.
@@ -15,19 +12,16 @@ import org.springframework.util.Log4jConfigurer;
  * @author scf37
  * @see EnvironmentNameResolver
  */
-public class ConfigLog4jConfigurer extends AbstractLog4jConfigurer {
+public class ConfigLog4j2Configurer extends AbstractLog4jConfigurer {
 
 	@Override
 	protected List<String> getConfigurationNames() {
-		return Arrays.asList(new String[]{"log4j.xml", "log4j.properties"});
+		return Arrays.asList(new String[]{"log4j2-test.json", "log4j2-test.jsn", "log4j2-test.xml", 
+				"log4j2.json", "log4j2.jsn", "log4j2.xml"});
 	}
 
 	@Override
 	protected void initLogging(File file) {
-		try {
-			Log4jConfigurer.initLogging(file.getAbsolutePath());
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException(e);
-		}
+		System.setProperty("log4j.configurationFile", file.getAbsolutePath());
 	}
 }
