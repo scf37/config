@@ -1,8 +1,14 @@
 package ru.scf37.config.util;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.core.impl.Log4jContextFactory;
+import org.apache.logging.log4j.core.selector.ContextSelector;
 /**
  * Configurator for log4j2.
  * <p/>
@@ -22,6 +28,11 @@ public class ConfigLog4j2Configurer extends AbstractLog4jConfigurer {
 
 	@Override
 	protected void initLogging(File file) {
-		System.setProperty("log4j.configurationFile", file.getAbsolutePath());
+		System.setProperty("log4j.configurationFile", file.toURI().toString());
+		//re-initialize log4j2
+		ContextSelector selector = ((Log4jContextFactory)LogManager.getFactory()).getSelector();
+		for (LoggerContext ctx: new ArrayList<LoggerContext>((selector.getLoggerContexts()))) {
+			selector.removeContext(ctx);
+		}
 	}
 }

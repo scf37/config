@@ -42,6 +42,7 @@ dependencies {
     provided(group: 'org.springframework', name: 'spring-context', version:'3.1.1.RELEASE')
 	provided(group: 'org.springframework', name: 'spring-web', version:'3.1.1.RELEASE')
     provided(group: 'org.apache.tomcat', name: 'tomcat-servlet-api', version:'7.0.2')
+	provided 'org.apache.logging.log4j:log4j-core:2.0-beta9'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
