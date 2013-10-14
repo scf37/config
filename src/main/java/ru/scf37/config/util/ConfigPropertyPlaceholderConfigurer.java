@@ -9,9 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import static ru.scf37.config.impl.ConfigLog.*;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
@@ -44,8 +43,6 @@ import ru.scf37.config.impl.ConfigUtils;
  *
  */
 public class ConfigPropertyPlaceholderConfigurer extends PropertySourcesPlaceholderConfigurer implements InitializingBean {
-	private Logger log = LoggerFactory.getLogger(getClass());
-	
 	private List<String> resources = new ArrayList<String>();
 	
 	private EnvironmentNameResolver environmentNameResolver = new EnvironmentNameResolver();
@@ -126,9 +123,9 @@ public class ConfigPropertyPlaceholderConfigurer extends PropertySourcesPlacehol
 			
 			return new ByteArrayResource(w.toString().getBytes(Charset.forName("UTF-8")));
 		} catch (ConfigException ex) {
-			log.warn("Unable to resolve environment config for {}, error={}", ConfigUtils.formatAddress(application, version, env, path), ex.getMessage());
+			warn("Unable to resolve environment config for " + ConfigUtils.formatAddress(application, version, env, path) + ", error=" + ex.getMessage());
 		} catch (IOException ex) {
-			log.warn("Unable to resolve environment config for {}, error={}", ConfigUtils.formatAddress(application, version, env, path), ex.getMessage());
+			warn("Unable to resolve environment config for " + ConfigUtils.formatAddress(application, version, env, path) + ", error=" + ex.getMessage());
 		}
 		return null;
 	}
@@ -140,7 +137,7 @@ public class ConfigPropertyPlaceholderConfigurer extends PropertySourcesPlacehol
 		try {
 			logger.info("Following properties were loaded " +  hidePasswords(mergeProperties()));
 		} catch (IOException e) {
-			log.warn("", e);
+			warn(e.toString());
 		}
 		
 		super.processProperties(beanFactoryToProcess, propertyResolver);

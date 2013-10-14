@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import static ru.scf37.config.impl.ConfigLog.*;
 import ru.scf37.config.ConfigReader;
 import ru.scf37.config.impl.ConfigUtils;
 /**
@@ -17,7 +14,6 @@ import ru.scf37.config.impl.ConfigUtils;
  *
  */
 public final class PropertiesAppendingReader implements ConfigReader<Properties> {
-	private Logger log = LoggerFactory.getLogger(getClass());
 	private List<ConfigReader<InputStream>> readers;
 	
 	PropertiesAppendingReader(List<ConfigReader<InputStream>> readers) {
@@ -44,10 +40,10 @@ public final class PropertiesAppendingReader implements ConfigReader<Properties>
 			found |= append(props, r.read(null, null, null, name));
 		}
 		if (found) {
-			log.info("Configuration loaded: {}", ConfigUtils.formatAddress(application, version, environment, name));
+			info("Configuration loaded: " + ConfigUtils.formatAddress(application, version, environment, name));
 			return props;
 		}
-		log.info("Configuration not found: {}", ConfigUtils.formatAddress(application, version, environment, name));
+		info("Configuration not found: " + ConfigUtils.formatAddress(application, version, environment, name));
 		return null;
 	}
 

@@ -6,10 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import static ru.scf37.config.impl.ConfigLog.*;
 import ru.scf37.config.ConfigException;
 import ru.scf37.config.ConfigReader;
 /**
@@ -22,7 +19,6 @@ import ru.scf37.config.ConfigReader;
  *
  */
 public class UrlConfigReader implements ConfigReader<InputStream> {
-	private Logger log = LoggerFactory.getLogger(getClass());
 	private String url;
 	
 	public UrlConfigReader(String url) {
@@ -85,7 +81,7 @@ public class UrlConfigReader implements ConfigReader<InputStream> {
 		try {
 			connection = u.openConnection();
 			connection.setUseCaches(connection.getClass().getName().startsWith("JNLP"));
-			log.info("Reading {}", u);
+			info("Reading " + u);
 			return connection.getInputStream();
 		}
 		catch (IOException ex) {
@@ -107,7 +103,7 @@ public class UrlConfigReader implements ConfigReader<InputStream> {
 		}
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(location);
 		if (is != null) {
-			log.info("Reading classpath:{}", location);
+			info("Reading classpath:" + location);
 		}
 		return is;
 	}

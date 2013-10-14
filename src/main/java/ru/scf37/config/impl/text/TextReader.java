@@ -6,9 +6,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static ru.scf37.config.impl.ConfigLog.*;
 
 import ru.scf37.config.ConfigReader;
 import ru.scf37.config.impl.ConfigUtils;
@@ -19,7 +17,6 @@ import ru.scf37.config.impl.ConfigUtils;
  *
  */
 public final class TextReader implements ConfigReader<String> {
-	private Logger log = LoggerFactory.getLogger(getClass());
 	private List<ConfigReader<InputStream>> readers;
 	private Charset charset;
 	
@@ -39,11 +36,11 @@ public final class TextReader implements ConfigReader<String> {
 		for (ConfigReader<InputStream> r: readers) {
 			String result = doRead(application, version, environment, name, r);
 			if (result != null) {
-				log.info("Configuration loaded: {}", ConfigUtils.formatAddress(application, version, environment, name));
+				info("Configuration loaded: " + ConfigUtils.formatAddress(application, version, environment, name));
 				return result;
 			}
 		}
-		log.info("Configuration not found: {}", ConfigUtils.formatAddress(application, version, environment, name));
+		info("Configuration not found: " + ConfigUtils.formatAddress(application, version, environment, name));
 		return null;
 	}
 
