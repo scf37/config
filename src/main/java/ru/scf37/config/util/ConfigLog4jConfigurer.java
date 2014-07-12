@@ -10,7 +10,7 @@ import org.springframework.util.Log4jConfigurer;
 import ru.scf37.config.impl.util.AbstractLog4jConfigurer;
 /**
  * Configurator for log4j.
- * <p/>
+ * <p>
  * This configurator tries to detect current environment via {@link EnvironmentNameResolver}. 
  * It supports both log4j.xml and log4j.properties configuration files.
  * 

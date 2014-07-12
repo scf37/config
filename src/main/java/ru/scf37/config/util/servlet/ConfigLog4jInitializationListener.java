@@ -7,8 +7,8 @@ import ru.scf37.config.util.ConfigLog4jConfigurer;
 /**
  * Performs log4j initialization for web applications
  * 
- * Application name and version can be specified as 
- * configApplicationName and configApplicationVersion parameters in <context-param> tag in web.xml.
+ * Application name can be specified as 
+ * <em>configApplicationName</em> parameter in &lt;context-param&gt; tag in web.xml.
  * 
  * @author scf37
  *

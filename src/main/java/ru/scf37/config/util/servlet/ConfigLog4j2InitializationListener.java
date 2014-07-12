@@ -10,9 +10,9 @@ import ru.scf37.config.util.ConfigLog4j2Configurer;
 
 /**
  * Performs log4j2 initialization for web applications
- * 
- * Application name and version can be specified as 
- * configApplicationName and configApplicationVersion parameters in <context-param> tag in web.xml.
+ * <p>
+ * Application name can be specified as 
+ * <em>configApplicationName</em> parameter in &lt;context-param&gt; tag in web.xml.
  * 
  * @author scf37
  *

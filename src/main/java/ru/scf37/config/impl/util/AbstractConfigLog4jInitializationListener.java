@@ -5,9 +5,9 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 /**
  * Performs log4j initialization for web applications
- * 
+ * <p>
  * Application name can be specified as 
- * configApplicationName  parameter in <context-param> tag in web.xml.
+ * configApplicationName  parameter in &lt;context-param&gt; tag in web.xml.
  * 
  * @author scf37
  *

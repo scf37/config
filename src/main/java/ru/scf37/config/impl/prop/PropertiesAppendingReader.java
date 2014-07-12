@@ -11,7 +11,7 @@ import ru.scf37.config.ConfigReader;
 import ru.scf37.config.impl.AbstractConfigReader;
 import ru.scf37.config.impl.ConfigUtils;
 /**
- * Reads Properties from given input stream readers and merges them by appending
+ * Reads Properties from given input stream readers and merges them by appending.
  * 
  * @author scf37
  *

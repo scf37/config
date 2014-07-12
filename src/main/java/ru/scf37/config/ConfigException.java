@@ -1,7 +1,7 @@
 package ru.scf37.config;
 
 /**
- * Exception thrown by Config library in case of any problems
+ * Exception thrown by Config library in case of any problems.
  * 
  * @author scf37
  *

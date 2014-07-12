@@ -4,7 +4,7 @@ import ru.scf37.config.util.EnvironmentNameResolver;
 
 /**
  * Configuration reader. 
- * <p/>
+ * <p>
  * Reads configuration by provided parameters.
  * 
  * @author scf37
@@ -15,7 +15,7 @@ public interface ConfigReader<T> {
 	/**
 	 * This method reads configuration according to parameters from 
 	 * {base} path defined by ConfigFactory.
-	 * <p/>
+	 * <p>
 	 * Following paths are tried (in order of decreasing priority):
 	 * <ul>
 	 * 	<li>{base}/{application}/{environment}/{name}</li>
@@ -23,7 +23,7 @@ public interface ConfigReader<T> {
 	 *  <li>{base}/{name}</li>
 	 * </ul>
 	 * Any parameter can be null, in this case it is just omitted from the path.
-	 * </p>
+	 * 
 	 * 
 	 * @param application application name
 	 * @param environment application environment
@@ -36,9 +36,9 @@ public interface ConfigReader<T> {
 	/**
 	 * This method is a shortcut to {@link #read(String, String, String)}.
 	 * It assumes null application name and uses default environment, which is determined by
-	 * {@link EnvironmentNameResolver#getDefaultEnvironmentNameResolver()}
+	 * {@link EnvironmentNameResolver#getDefaultEnvironmentNameResolver()}.
 	 * 
-	 * @param name
+	 * @param name configuration file name
 	 * @return read configuration or null if configuration not found
 	 * @throws ConfigException bad url format
 	 */

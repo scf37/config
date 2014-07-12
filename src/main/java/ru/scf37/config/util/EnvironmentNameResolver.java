@@ -7,8 +7,8 @@ import ru.scf37.config.impl.ConfigLog;
 /**
  * Resolves environment name. Algorithm is as follows:
  * <ul>
- * <li>if config.environment property is set, use it </li>
- * <li>else use current host name as environment name</li>
+ * <li>if config.environment property is set, use it
+ * <li>else use current host name as environment name
  * </ul>
  *  
  * @author scf37
@@ -17,6 +17,11 @@ import ru.scf37.config.impl.ConfigLog;
 public class EnvironmentNameResolver {
 	private static EnvironmentNameResolver defaultEnvironmentNameResolver = new EnvironmentNameResolver();
 	
+	/**
+	 * Set default EnvironmentNameResolver instance.
+	 * 
+	 * @param resolver new default resolver
+	 */
 	public static void setDefaultEnvironmentNameResolver(EnvironmentNameResolver resolver) {
 		defaultEnvironmentNameResolver = resolver;
 	}

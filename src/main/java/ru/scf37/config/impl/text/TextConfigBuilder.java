@@ -9,7 +9,7 @@ import ru.scf37.config.ConfigReader;
 import ru.scf37.config.impl.UrlConfigReader;
 /**
  * Builder for String configuration.
- * <p/>
+ * <p>
  * String configurations do not support merging, thus first found configuration will be used.
  * 
  * @author scf37
@@ -21,7 +21,7 @@ public class TextConfigBuilder {
 	public TextConfigBuilder() {
 	}
 	/**
-	 * Add new configuration source, of lower priority
+	 * Add new configuration source, of LOWER priority.
 	 * 
 	 * @param url file:, classpath: or http: url
 	 * @return this builder

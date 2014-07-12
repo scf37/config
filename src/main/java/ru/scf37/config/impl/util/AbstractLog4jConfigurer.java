@@ -14,20 +14,20 @@ import ru.scf37.config.impl.ConfigUtils;
 import ru.scf37.config.util.EnvironmentNameResolver;
 /**
  * Configurator for log4j.
- * <p/>
+ * <p>
  * This configurator tries to detect current environment via {@link EnvironmentNameResolver}. 
- * Configuration file names and initialization should be specified in subclasses
+ * Configuration file names and initialization should be specified in subclasses.
  * 
  * @author scf37
  * @see EnvironmentNameResolver
  */
 public abstract class AbstractLog4jConfigurer {
-	private EnvironmentNameResolver environmentNameResolver = new EnvironmentNameResolver();
+	private EnvironmentNameResolver environmentNameResolver = EnvironmentNameResolver.getDefaultEnvironmentNameResolver();
 	
 	/**
 	 * Set custom EnvironmentNameResolver.
 	 * 
-	 * @param environmentNameResolver
+	 * @param environmentNameResolver environment name resolver to use
 	 */
 	public void setEnvironmentNameResolver(
 			EnvironmentNameResolver environmentNameResolver) {

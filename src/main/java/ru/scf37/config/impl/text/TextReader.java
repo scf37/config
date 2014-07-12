@@ -13,7 +13,7 @@ import ru.scf37.config.ConfigReader;
 import ru.scf37.config.impl.AbstractConfigReader;
 import ru.scf37.config.impl.ConfigUtils;
 /**
- * Reads text from given input stream readers and uses first found one
+ * Reads text from given input stream readers and uses first found one.
  * 
  * @author scf37
  *

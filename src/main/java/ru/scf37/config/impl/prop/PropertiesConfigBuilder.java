@@ -10,7 +10,7 @@ import ru.scf37.config.impl.UrlConfigReader;
 /**
  * 
  * Builder for Properties configuration.
- * <p/>
+ * <p>
  * Properties configurations support merging, thus next configurations 
  * will add properties overriding already defined keys.
  * 
@@ -24,7 +24,7 @@ public class PropertiesConfigBuilder {
 	}
 	/**
 	 * Append new configuration source.
-	 * <p/>
+	 * <p>
 	 * Properties from this source will be added to result, overriding already defined properties.
 	 * 
 	 * @param url file:, classpath: or http: url
@@ -37,11 +37,11 @@ public class PropertiesConfigBuilder {
 	
 	/**
 	 * Append existing Properties object.
-	 * <p/>
+	 * <p>
 	 * Properties from this source will be added to result, overriding already defined properties.
 	 * 
-	 * @param properties
-	 * @return
+	 * @param properties existing Properties object to use
+	 * @return this builder
 	 */
 	public final PropertiesConfigBuilder append(Properties properties) {
 		readers.add(makePropertiesReader(properties));
@@ -50,7 +50,7 @@ public class PropertiesConfigBuilder {
 
 	/**
 	 * Append System properties.
-	 * <p/>
+	 * <p>
 	 * Properties from this source will be added to result, overriding already defined properties.
 	 * 
 	 * @return this builder

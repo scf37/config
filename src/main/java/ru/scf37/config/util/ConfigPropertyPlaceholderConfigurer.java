@@ -26,17 +26,17 @@ import ru.scf37.config.impl.ConfigUtils;
 
 /**
  * Adaptation of Spring's PropertySourcesPlaceholderConfigurer to use with Config library.
- * <p/>
+ * <p>
  * This class supports all features of Spring and Config library, i.e. 
  * placeholder resolving, properties overriding works as well as properties merging, multiple protocols etc.
- * <p/>
+ * <p>
  * Usage example:
  * <pre class="code">
- * 	&lt;bean class="ru.scf37.config.util.ConfigPropertyPlaceholderConfigurer">
-		&lt;property name="root" value="classpath:test" />
-		&lt;property name="application" value="app" />
-		&lt;property name="location" value="test.properties" />
-	&lt;/bean>
+ * 	&lt;bean class="ru.scf37.config.util.ConfigPropertyPlaceholderConfigurer"&gt;
+		&lt;property name="root" value="classpath:test" /&gt;
+		&lt;property name="application" value="app" /&gt;
+		&lt;property name="location" value="test.properties" /&gt;
+	&lt;/bean&gt;
 	</pre>
  * 
  * @author scf37
@@ -45,14 +45,14 @@ import ru.scf37.config.impl.ConfigUtils;
 public class ConfigPropertyPlaceholderConfigurer extends PropertySourcesPlaceholderConfigurer implements InitializingBean {
 	private List<String> resources = new ArrayList<String>();
 	
-	private EnvironmentNameResolver environmentNameResolver = new EnvironmentNameResolver();
+	private EnvironmentNameResolver environmentNameResolver = EnvironmentNameResolver.getDefaultEnvironmentNameResolver();
 	
 	private String application;
 	private String root = "classpath:";
 	/**
 	 * Application name
 	 * 
-	 * @param application
+	 * @param application application name
 	 */
 	public void setApplication(String application) {
 		this.application = application;
@@ -60,7 +60,8 @@ public class ConfigPropertyPlaceholderConfigurer extends PropertySourcesPlacehol
 
 	/**
 	 * Configuration root path 
-	 * @param root
+	 * @param root root path URL
+	 * @see ConfigFactory#readPropertiesFrom(String)
 	 */
 	public void setRoot(String root) {
 		this.root = root;
@@ -68,7 +69,7 @@ public class ConfigPropertyPlaceholderConfigurer extends PropertySourcesPlacehol
 	
 	/**
 	 * Set custom EnvironmentNameResolver
-	 * @param environmentNameResolver
+	 * @param environmentNameResolver environment name resolver to use
 	 */
 	public void setEnvironmentNameResolver(
 			EnvironmentNameResolver environmentNameResolver) {

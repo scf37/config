@@ -12,10 +12,11 @@ import java.net.URLConnection;
 import ru.scf37.config.ConfigException;
 /**
  * Loads data from specified URL
- * supports:
- * - classpath urls i.e. classpath:/a/b/c
- * - java.net.URLs including file: and http:
- * 
+ * <p>
+ * supports:<ul>
+ * <li> classpath urls i.e. classpath:/a/b/c
+ * <li> java.net.URLs including file: and http:
+ * </ul>
  * @author scf37
  *
  */
@@ -91,7 +92,7 @@ public class UrlConfigReader extends AbstractConfigReader<InputStream> {
 		}
 	}
 	/**
-	 * Opens location as classpath location
+	 * Opens location as classpath location.
 	 * 
 	 * @param location location, already strept from classpath: prefix
 	 * @return InputStream or null
