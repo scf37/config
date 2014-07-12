@@ -1,12 +1,14 @@
 package ru.scf37.config.impl;
 
+import static ru.scf37.config.impl.ConfigLog.info;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import static ru.scf37.config.impl.ConfigLog.*;
+
 import ru.scf37.config.ConfigException;
 import ru.scf37.config.ConfigReader;
 /**
@@ -28,7 +30,8 @@ public class UrlConfigReader implements ConfigReader<InputStream> {
 		if (url.endsWith("/")) {
 			url = url.substring(0, url.length() - 1);
 		}
-		if (url.indexOf(':') < 0) {
+		if (url.indexOf(':') < 0 || 
+				url.indexOf(':') == 1) { //windows absolute path
 			url = "file:" + url;
 		}
 		url = url.replaceAll("\\\\", "/");
@@ -81,8 +84,9 @@ public class UrlConfigReader implements ConfigReader<InputStream> {
 		try {
 			connection = u.openConnection();
 			connection.setUseCaches(connection.getClass().getName().startsWith("JNLP"));
+			InputStream is = connection.getInputStream();
 			info("Reading " + u);
-			return connection.getInputStream();
+			return is;
 		}
 		catch (IOException ex) {
 			if (connection instanceof HttpURLConnection) {

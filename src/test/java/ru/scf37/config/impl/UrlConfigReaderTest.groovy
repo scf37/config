@@ -1,12 +1,5 @@
 package ru.scf37.config.impl
 
-import java.io.IOException
-import java.io.InputStream
-
-import junit.framework.Assert
-
-import org.junit.Test
-
 import ru.scf37.config.ConfigReader
 import spock.lang.Specification
 
@@ -42,6 +35,14 @@ public class UrlConfigReaderTest extends Specification {
 		exists(r.read("app", "v1", "env", "conf/test2.properties"))
 		exists(r.read("app", "v1", "env", "/conf/test2.properties"))
 		r.read("app", "v1", "env", "/conf/missing.properties") == null
+	when: 'absolute path, with protocol'
+		r = new UrlConfigReader('file:' + System.getProperty("user.home"))
+	then:
+		r.read("app", "v1", "env", "conf/missing.properties") == null
+	when: 'absolute path, w/o protocol'
+		r = new UrlConfigReader(System.getProperty("user.home"))
+	then:
+		r.read("app", "v1", "env", "conf/missing.properties") == null
 	}
 	
 	def "reading via http works"() {

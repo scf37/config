@@ -30,16 +30,16 @@ public final class PropertiesAppendingReader implements ConfigReader<Properties>
 		Properties props = new Properties();
 		boolean found = false;
 		for (ConfigReader<InputStream> r: readers) {
-			if (environment != null) {
-				found |= append(props, r.read(application, version, environment, name));
+			found |= append(props, r.read(null, null, null, name));
+			if (application != null) {
+				found |= append(props, r.read(application, null, null, name));
 			}
 			if (version != null) {
 				found |= append(props, r.read(application, version, null, name));
 			}
-			if (application != null) {
-				found |= append(props, r.read(application, null, null, name));
+			if (environment != null) {
+				found |= append(props, r.read(application, version, environment, name));
 			}
-			found |= append(props, r.read(null, null, null, name));
 		}
 		if (found) {
 			info("Configuration loaded: " + ConfigUtils.formatAddress(application, version, environment, name));
@@ -58,7 +58,6 @@ public final class PropertiesAppendingReader implements ConfigReader<Properties>
 			newProps.load(is);
 			
 			for (String key: newProps.stringPropertyNames()) {
-				//overriding existing properties with new ones
 				props.put(key, newProps.get(key));
 			}
 		} catch (IOException e) {
