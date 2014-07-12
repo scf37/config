@@ -10,7 +10,7 @@ Features
 * Support java properties merging.
 * Supports typical enterprise use-cases: common configuration, 
     configuration for specific environment, sensitive production configuration.
-* Has support for Spring, Log4j, web containers.
+* Has support for Spring, Log4j/Log4j2, web containers.
 
 Typical usecases
 ================
@@ -21,7 +21,7 @@ Typical usecases
   ```java  
   ConfigReader<Properties> reader = ConfigFactory.readSystemProperties()
     	.append("classpath:config").build();
-	reader.read(null, null, "myenv", "my.properties");
+	reader.read(null, "myenv", "my.properties");
   ```
   File structure for this example:
   ```
@@ -35,15 +35,15 @@ Typical usecases
 
   ```java  
   EnvironmentNameResolver resolver = new EnvironmentNameResolver();
-	ConfigReader<Properties> reader = ConfigFactory.readPropertiesFrom("file:~/config/")
-  		.append("classpath:config").build();
+	ConfigReader<Properties> reader = ConfigFactory.readPropertiesFrom("classpath:config")
+  		.append("file:~/config/").build();
 	reader.read("myapp", "v1", resolver.getEnvironmentName(), "my.properties");
   ```
   Typical file structure for this example:
   ```  
-  classpath:config/myapp/v1/myhost/my.properties   <-- env-specific properties
-  classpath:config/myapp/v1/prod/my.properties     <-- prod-specific properties
-  classpath:config/myapp/v1/my.properties          <-- common properties
+  classpath:config/myapp/myhost/my.properties   <-- env-specific properties
+  classpath:config/myapp/prod/my.properties     <-- prod-specific properties
+  classpath:config/myapp/my.properties          <-- common properties
   ~/config/myapp/v1/my.properties                  <-- production passwords
   ```
 3. And more!
@@ -58,7 +58,7 @@ Installing
 
 git clone https://github.com/scf37/config.git  
 cd config  
-mvn install -DskipTests  
+gradle install  
 
 No public repo yet
 

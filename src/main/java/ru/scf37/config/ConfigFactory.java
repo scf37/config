@@ -16,7 +16,7 @@ public final class ConfigFactory {
 	/**
 	 * Factory method to read configuration of type java.util.Properties.
 	 * 
-	 * @param url Base url to read from. classpath:, file: and http: urls are supported
+	 * @param url Base url to read from. classpath:, file: and http: urls are supported. You can also just pass local FS file path. 
 	 * @return builder for Properties config
 	 */
 	public static PropertiesConfigBuilder readPropertiesFrom(String url) {

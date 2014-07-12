@@ -1,4 +1,8 @@
-package ru.scf37.config.util;
+package ru.scf37.config.util.servlet;
+
+import ru.scf37.config.impl.util.AbstractConfigLog4jInitializationListener;
+import ru.scf37.config.impl.util.AbstractLog4jConfigurer;
+import ru.scf37.config.util.ConfigLog4jConfigurer;
 
 /**
  * Performs log4j initialization for web applications

@@ -1,8 +1,12 @@
-package ru.scf37.config.util;
+package ru.scf37.config.util.servlet;
 
 import javax.servlet.ServletContextEvent;
 
 import org.apache.logging.log4j.core.web.Log4jServletContextListener;
+
+import ru.scf37.config.impl.util.AbstractConfigLog4jInitializationListener;
+import ru.scf37.config.impl.util.AbstractLog4jConfigurer;
+import ru.scf37.config.util.ConfigLog4j2Configurer;
 
 /**
  * Performs log4j2 initialization for web applications

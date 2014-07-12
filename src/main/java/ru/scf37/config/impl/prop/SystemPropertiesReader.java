@@ -12,8 +12,7 @@ import ru.scf37.config.ConfigReader;
 public class SystemPropertiesReader implements ConfigReader<InputStream>{
 
 	@Override
-	public InputStream read(String application, String version,
-			String environment, String name) {
+	public InputStream read(String application, String environment, String name) {
 		try {
 			StringWriter sw = new StringWriter();
 			System.getProperties().store(sw, null);

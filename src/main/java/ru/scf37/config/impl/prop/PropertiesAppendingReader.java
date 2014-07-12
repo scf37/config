@@ -26,26 +26,23 @@ public final class PropertiesAppendingReader implements ConfigReader<Properties>
 	}
 	
 	@Override
-	public Properties read(String application, String version, String environment, String name) {
+	public Properties read(String application, String environment, String name) {
 		Properties props = new Properties();
 		boolean found = false;
 		for (ConfigReader<InputStream> r: readers) {
-			found |= append(props, r.read(null, null, null, name));
+			found |= append(props, r.read(null, null, name));
 			if (application != null) {
-				found |= append(props, r.read(application, null, null, name));
-			}
-			if (version != null) {
-				found |= append(props, r.read(application, version, null, name));
+				found |= append(props, r.read(application, null, name));
 			}
 			if (environment != null) {
-				found |= append(props, r.read(application, version, environment, name));
+				found |= append(props, r.read(application, environment, name));
 			}
 		}
 		if (found) {
-			info("Configuration loaded: " + ConfigUtils.formatAddress(application, version, environment, name));
+			info("Configuration loaded: " + ConfigUtils.formatAddress(application, environment, name));
 			return props;
 		}
-		info("Configuration not found: " + ConfigUtils.formatAddress(application, version, environment, name));
+		info("Configuration not found: " + ConfigUtils.formatAddress(application, environment, name));
 		return null;
 	}
 

@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.util.Log4jConfigurer;
+
+import ru.scf37.config.impl.util.AbstractLog4jConfigurer;
 /**
  * Configurator for log4j.
  * <p/>

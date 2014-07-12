@@ -39,20 +39,16 @@ public class UrlConfigReader implements ConfigReader<InputStream> {
 	}
 	
 	@Override
-	public InputStream read(String application, String version, String environment, String name) {
-		String url = appendParameters(application, version, environment, name);
+	public InputStream read(String application, String environment, String name) {
+		String url = appendParameters(application, environment, name);
 		
 		return read(url);		
 	}
 
-	private String appendParameters(String application, String version,
-			String environment, String name) {
+	private String appendParameters(String application, String environment, String name) {
 		String url = this.url;
 		if (application != null) {
 			url += "/" + application;
-		}
-		if (version != null) {
-			url += "/" + version;
 		}
 		if (environment != null) {
 			url += "/" + environment;

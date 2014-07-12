@@ -1,12 +1,13 @@
 package ru.scf37.config.impl.text;
 
+import static ru.scf37.config.impl.ConfigLog.info;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
 import java.util.List;
-import static ru.scf37.config.impl.ConfigLog.*;
 
 import ru.scf37.config.ConfigReader;
 import ru.scf37.config.impl.ConfigUtils;
@@ -32,32 +33,32 @@ public final class TextReader implements ConfigReader<String> {
 	}
 	
 	@Override
-	public String read(String application, String version, String environment, String name) {
+	public String read(String application, String environment, String name) {
 		for (ConfigReader<InputStream> r: readers) {
-			String result = doRead(application, version, environment, name, r);
+			String result = doRead(application, environment, name, r);
 			if (result != null) {
-				info("Configuration loaded: " + ConfigUtils.formatAddress(application, version, environment, name));
+				info("Configuration loaded: " + ConfigUtils.formatAddress(application, environment, name));
 				return result;
 			}
 		}
-		info("Configuration not found: " + ConfigUtils.formatAddress(application, version, environment, name));
+		info("Configuration not found: " + ConfigUtils.formatAddress(application, environment, name));
 		return null;
 	}
 
-	private String doRead(String application, String version, String environment,
+	private String doRead(String application, String environment,
 			String name, ConfigReader<InputStream> r) {
 		String result;
 		
-		result = read(r.read(application, version, environment, name));
+		result = read(r.read(application, environment, name));
 		if (result != null) return result;
 		
-		result = read(r.read(application, version, null, name));
+		result = read(r.read(application, null, name));
 		if (result != null) return result;
 		
-		result = read(r.read(application, null, null, name));
+		result = read(r.read(application, null, name));
 		if (result != null) return result;
 		
-		result = read(r.read(null, null, null, name));
+		result = read(r.read(null, null, name));
 		return result;
 	}
 

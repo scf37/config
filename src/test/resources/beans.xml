@@ -12,7 +12,6 @@
 		class="ru.scf37.config.util.ConfigPropertyPlaceholderConfigurer">
 		<property name="root" value="classpath:test" />
 		<property name="application" value="app" />
-		<property name="version" value="v1" />
 		<property name="location" value="test.properties" />
 	</bean>
 	

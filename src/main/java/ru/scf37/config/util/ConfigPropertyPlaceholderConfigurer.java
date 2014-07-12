@@ -1,5 +1,7 @@
 package ru.scf37.config.util;
 
+import static ru.scf37.config.impl.ConfigLog.warn;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
@@ -9,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import static ru.scf37.config.impl.ConfigLog.*;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -34,7 +35,6 @@ import ru.scf37.config.impl.ConfigUtils;
  * 	&lt;bean class="ru.scf37.config.util.ConfigPropertyPlaceholderConfigurer">
 		&lt;property name="root" value="classpath:test" />
 		&lt;property name="application" value="app" />
-		&lt;property name="version" value="v1" />
 		&lt;property name="location" value="test.properties" />
 	&lt;/bean>
 	</pre>
@@ -48,7 +48,6 @@ public class ConfigPropertyPlaceholderConfigurer extends PropertySourcesPlacehol
 	private EnvironmentNameResolver environmentNameResolver = new EnvironmentNameResolver();
 	
 	private String application;
-	private String version;
 	private String root = "classpath:";
 	/**
 	 * Application name
@@ -58,14 +57,7 @@ public class ConfigPropertyPlaceholderConfigurer extends PropertySourcesPlacehol
 	public void setApplication(String application) {
 		this.application = application;
 	}
-	/**
-	 * Application version
-	 * 
-	 * @param version
-	 */
-	public void setVersion(String version) {
-		this.version = version;
-	}
+
 	/**
 	 * Configuration root path 
 	 * @param root
@@ -114,7 +106,7 @@ public class ConfigPropertyPlaceholderConfigurer extends PropertySourcesPlacehol
 
 		try {
 			ConfigReader<Properties> reader = ConfigFactory.readPropertiesFrom(root).build();
-			Properties p = reader.read(application, version, env, path);
+			Properties p = reader.read(application, env, path);
 			if (p == null) {
 				return null;
 			}
@@ -123,9 +115,9 @@ public class ConfigPropertyPlaceholderConfigurer extends PropertySourcesPlacehol
 			
 			return new ByteArrayResource(w.toString().getBytes(Charset.forName("UTF-8")));
 		} catch (ConfigException ex) {
-			warn("Unable to resolve environment config for " + ConfigUtils.formatAddress(application, version, env, path) + ", error=" + ex.getMessage());
+			warn("Unable to resolve environment config for " + ConfigUtils.formatAddress(application, env, path) + ", error=" + ex.getMessage());
 		} catch (IOException ex) {
-			warn("Unable to resolve environment config for " + ConfigUtils.formatAddress(application, version, env, path) + ", error=" + ex.getMessage());
+			warn("Unable to resolve environment config for " + ConfigUtils.formatAddress(application, env, path) + ", error=" + ex.getMessage());
 		}
 		return null;
 	}
@@ -142,15 +134,24 @@ public class ConfigPropertyPlaceholderConfigurer extends PropertySourcesPlacehol
 		
 		super.processProperties(beanFactoryToProcess, propertyResolver);
 	}
+	
+	protected boolean isPasswordKey(String key) {
+		if (key == null) return false;
+		key = key.toLowerCase();
+		return key.contains("password");
+	};
+	
 	private String hidePasswords(Properties p) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		for (String key: p.stringPropertyNames()) {
-			if (key.toLowerCase().contains("password")) {
+			if (isPasswordKey(key)) {
 				map.put(key, "******");
 			} else {
 				map.put(key, p.getProperty(key));
 			}
 		}
 		return map.toString();
-	};
+	}
+
+	
 }

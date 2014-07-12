@@ -9,6 +9,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.impl.Log4jContextFactory;
 import org.apache.logging.log4j.core.selector.ContextSelector;
+
+import ru.scf37.config.impl.util.AbstractLog4jConfigurer;
 /**
  * Configurator for log4j2.
  * <p/>
