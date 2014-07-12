@@ -1,10 +1,12 @@
 package ru.scf37.config.impl.prop;
 
+import static ru.scf37.config.impl.ConfigLog.info;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
-import static ru.scf37.config.impl.ConfigLog.*;
+
 import ru.scf37.config.ConfigReader;
 import ru.scf37.config.impl.ConfigUtils;
 /**
@@ -56,9 +58,8 @@ public final class PropertiesAppendingReader implements ConfigReader<Properties>
 			newProps.load(is);
 			
 			for (String key: newProps.stringPropertyNames()) {
-				if (!props.containsKey(key)) {
-					props.put(key, newProps.get(key));
-				}
+				//overriding existing properties with new ones
+				props.put(key, newProps.get(key));
 			}
 		} catch (IOException e) {
 			return false;
