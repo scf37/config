@@ -35,8 +35,8 @@ Typical usecases
   ```
   File structure for this example:
   ```
-  classpath:my.properties
-  classpath:myenv/my.properties
+  classpath:my.properties                       <-- default (common for all envs) properties
+  classpath:myenv/my.properties                 <-- env-specific properties   
   ```
 
 2. Use host name as environment name(useful for developers to have their private configuration).  
@@ -54,7 +54,7 @@ Typical usecases
   classpath:config/myapp/myhost/my.properties   <-- env-specific properties
   classpath:config/myapp/prod/my.properties     <-- prod-specific properties
   classpath:config/myapp/my.properties          <-- common properties
-  ~/config/myapp/v1/my.properties               <-- production passwords
+  ~/config/myapp/my.properties                  <-- production passwords
   ```
 3. And more!
 
