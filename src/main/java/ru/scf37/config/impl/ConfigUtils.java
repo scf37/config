@@ -1,5 +1,6 @@
 package ru.scf37.config.impl;
 
+
 public final class ConfigUtils {
 	private ConfigUtils() {
 	}

@@ -4,11 +4,27 @@ import ru.scf37.config.ConfigFactory
 import spock.lang.Specification
 
 public class SystemPropertiesTest extends Specification {
-	def "Appending system properties works"() {
+	def oldValue
+	def setup() {
+		oldValue = System.getProperty("key1")
+		System.setProperty("key1", "w00t")
+	}
+	
+	def cleanup() {
+		if (oldValue == null) {
+			System.properties.remove("key1")	
+		} else {
+			System.setProperty("key1", oldValue)
+		}
+	}
+	
+	def "system properties correctly override existing properties"() {
 	when:
-		def reader = ConfigFactory.readSystemProperties().build();
+		System.setProperty("key1", "w00t")
+		def reader = ConfigFactory.readPropertiesFrom("classpath:test").appendSystemProperties().build()
 		Properties p = reader.read("app", "env", "test.properties")
 	then:
-		p.containsKey("java.runtime.name")
+		p.key1 == 'w00t'
+		p.key2 == '22'
 	}
 }

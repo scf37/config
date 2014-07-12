@@ -1,5 +1,7 @@
 package ru.scf37.config;
 
+import ru.scf37.config.util.EnvironmentNameResolver;
+
 /**
  * Configuration reader. 
  * <p/>
@@ -25,8 +27,20 @@ public interface ConfigReader<T> {
 	 * 
 	 * @param application application name
 	 * @param environment application environment
+	 * @param name configuration file name
 	 * @return read configuration or null if configuration not found
 	 * @throws ConfigException bad url format
 	 */
 	public T read(String application, String environment, String name);
+	
+	/**
+	 * This method is a shortcut to {@link #read(String, String, String)}.
+	 * It assumes null application name and uses default environment, which is determined by
+	 * {@link EnvironmentNameResolver#getDefaultEnvironmentNameResolver()}
+	 * 
+	 * @param name
+	 * @return read configuration or null if configuration not found
+	 * @throws ConfigException bad url format
+	 */
+	public T read(String name);
 }

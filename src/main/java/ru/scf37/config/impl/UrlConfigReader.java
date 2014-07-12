@@ -10,7 +10,6 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import ru.scf37.config.ConfigException;
-import ru.scf37.config.ConfigReader;
 /**
  * Loads data from specified URL
  * supports:
@@ -20,7 +19,7 @@ import ru.scf37.config.ConfigReader;
  * @author scf37
  *
  */
-public class UrlConfigReader implements ConfigReader<InputStream> {
+public class UrlConfigReader extends AbstractConfigReader<InputStream> {
 	private String url;
 	
 	public UrlConfigReader(String url) {
@@ -42,7 +41,7 @@ public class UrlConfigReader implements ConfigReader<InputStream> {
 	public InputStream read(String application, String environment, String name) {
 		String url = appendParameters(application, environment, name);
 		
-		return read(url);		
+		return readUrl(url);		
 	}
 
 	private String appendParameters(String application, String environment, String name) {
@@ -57,7 +56,7 @@ public class UrlConfigReader implements ConfigReader<InputStream> {
 		return url;
 	}
 
-	private InputStream read(String url) {
+	private InputStream readUrl(String url) {
 		if (url.startsWith("classpath:")) {
 			return classpathUrl(url.substring("classpath:".length()));
 		} else {

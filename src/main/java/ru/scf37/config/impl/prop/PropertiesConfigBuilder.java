@@ -12,7 +12,7 @@ import ru.scf37.config.impl.UrlConfigReader;
  * Builder for Properties configuration.
  * <p/>
  * Properties configurations support merging, thus next configurations 
- * will add properties if they are not already defined.
+ * will add properties overriding already defined keys.
  * 
  * @author scf37
  *
@@ -25,7 +25,7 @@ public class PropertiesConfigBuilder {
 	/**
 	 * Append new configuration source.
 	 * <p/>
-	 * Properties from this source will be added to result if they are not alredy defined.
+	 * Properties from this source will be added to result, overriding already defined properties.
 	 * 
 	 * @param url file:, classpath: or http: url
 	 * @return this builder
@@ -34,10 +34,24 @@ public class PropertiesConfigBuilder {
 		readers.add(makeConfigReader(url));
 		return this;
 	}
+	
 	/**
-	 * Appends System properties.
+	 * Append existing Properties object.
 	 * <p/>
-	 * Properties from this source will be added to result if they are not alredy defined.
+	 * Properties from this source will be added to result, overriding already defined properties.
+	 * 
+	 * @param properties
+	 * @return
+	 */
+	public final PropertiesConfigBuilder append(Properties properties) {
+		readers.add(makePropertiesReader(properties));
+		return this;
+	}
+
+	/**
+	 * Append System properties.
+	 * <p/>
+	 * Properties from this source will be added to result, overriding already defined properties.
 	 * 
 	 * @return this builder
 	 */	
@@ -45,9 +59,13 @@ public class PropertiesConfigBuilder {
 		readers.add(makeSystemPropertiesReader());
 		return this;
 	}
-
+	
 	protected ConfigReader<InputStream> makeSystemPropertiesReader() {
-		return new SystemPropertiesReader();
+		return new PropertiesObjectReader(System.getProperties());
+	}
+	
+	protected ConfigReader<InputStream> makePropertiesReader(Properties properties) {
+		return new PropertiesObjectReader(properties);
 	}
 	
 	protected ConfigReader<InputStream> makeConfigReader(String url) {

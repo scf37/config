@@ -1,5 +1,7 @@
 package ru.scf37.config;
 
+import java.util.Properties;
+
 import ru.scf37.config.impl.prop.PropertiesConfigBuilder;
 import ru.scf37.config.impl.text.TextConfigBuilder;
 
@@ -27,14 +29,22 @@ public final class ConfigFactory {
 		}
 	}
 	
-	public static PropertiesConfigBuilder readSystemProperties() {
+	/**
+	 * Factory method use existing java.util.Properties object for configuration.
+	 * 
+	 * @param url Base url to read from. classpath:, file: and http: urls are supported. You can also just pass local FS file path. 
+	 * @return builder for Properties config
+	 */
+	public static PropertiesConfigBuilder readPropertiesFrom(Properties properties) {
 		try {
-			return PROP_BUILDER.newInstance().appendSystemProperties();
+			return PROP_BUILDER.newInstance().append(properties);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
+	
+
 	/**
 	 * Factory method to read plain text configuration
 	 * 

@@ -10,6 +10,7 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 import ru.scf37.config.ConfigReader;
+import ru.scf37.config.impl.AbstractConfigReader;
 import ru.scf37.config.impl.ConfigUtils;
 /**
  * Reads text from given input stream readers and uses first found one
@@ -17,7 +18,7 @@ import ru.scf37.config.impl.ConfigUtils;
  * @author scf37
  *
  */
-public final class TextReader implements ConfigReader<String> {
+public final class TextReader extends AbstractConfigReader<String> {
 	private List<ConfigReader<InputStream>> readers;
 	private Charset charset;
 	

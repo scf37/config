@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Properties;
 
 import ru.scf37.config.ConfigReader;
+import ru.scf37.config.impl.AbstractConfigReader;
 import ru.scf37.config.impl.ConfigUtils;
 /**
  * Reads Properties from given input stream readers and merges them by appending
@@ -15,7 +16,7 @@ import ru.scf37.config.impl.ConfigUtils;
  * @author scf37
  *
  */
-public final class PropertiesAppendingReader implements ConfigReader<Properties> {
+public final class PropertiesAppendingReader extends AbstractConfigReader<Properties> {
 	private List<ConfigReader<InputStream>> readers;
 	
 	PropertiesAppendingReader(List<ConfigReader<InputStream>> readers) {
