@@ -23,7 +23,7 @@ public final class ConfigFactory {
 	 */
 	public static PropertiesConfigBuilder readPropertiesFrom(String url) {
 		try {
-			return PROP_BUILDER.newInstance().append(url);
+			return PROP_BUILDER.newInstance().overrideWith(url);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -37,7 +37,7 @@ public final class ConfigFactory {
 	 */
 	public static PropertiesConfigBuilder readPropertiesFrom(Properties properties) {
 		try {
-			return PROP_BUILDER.newInstance().append(properties);
+			return PROP_BUILDER.newInstance().overrideWith(properties);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

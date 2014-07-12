@@ -21,7 +21,7 @@ public class SystemPropertiesTest extends Specification {
 	def "system properties correctly override existing properties"() {
 	when:
 		System.setProperty("key1", "w00t")
-		def reader = ConfigFactory.readPropertiesFrom("classpath:test").appendSystemProperties().build()
+		def reader = ConfigFactory.readPropertiesFrom("classpath:test").overrideWithSystemProperties().build()
 		Properties p = reader.read("app", "env", "test.properties")
 	then:
 		p.key1 == 'w00t'

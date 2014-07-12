@@ -14,14 +14,24 @@ Features
 
 Typical usecases
 ================
-
+0. Just make it work
+   ```java
+    //look in classpath root
+    ConfigReader<Properties> reader = ConfigFactory.readPropertiesFrom("classpath:")
+        .build();
+    //look for classpath:my.properties
+    //if classpath:{hostname}/my.properties exists, load it as well, overriding keys
+    //in previous file
+    Properties p = reader.read("my.properties");
+  ```
+  
 1. Read java properties for this environment, add some default properties to them
     and allow to override loaded properties by system properties.
 
   ```java  
-  ConfigReader<Properties> reader = ConfigFactory.readSystemProperties()
-    	.append("classpath:config").build();
-	reader.read(null, "myenv", "my.properties");
+    ConfigReader<Properties> reader = ConfigFactory.readPropertiesFrom("classpath:config")
+        .overrideWithSystemProperties().build();
+    Properties p = reader.read(null, "myenv", "my.properties");
   ```
   File structure for this example:
   ```
@@ -35,16 +45,16 @@ Typical usecases
 
   ```java  
   EnvironmentNameResolver resolver = new EnvironmentNameResolver();
-	ConfigReader<Properties> reader = ConfigFactory.readPropertiesFrom("classpath:config")
-  		.append("file:~/config/").build();
-	reader.read("myapp", "v1", resolver.getEnvironmentName(), "my.properties");
+    ConfigReader<Properties> reader = ConfigFactory.readPropertiesFrom("classpath:config")
+        .overrideWith("file:~/config/").build();
+    Properties p = reader.read("myapp", "v1", resolver.getEnvironmentName(), "my.properties");
   ```
   Typical file structure for this example:
   ```  
   classpath:config/myapp/myhost/my.properties   <-- env-specific properties
   classpath:config/myapp/prod/my.properties     <-- prod-specific properties
   classpath:config/myapp/my.properties          <-- common properties
-  ~/config/myapp/v1/my.properties                  <-- production passwords
+  ~/config/myapp/v1/my.properties               <-- production passwords
   ```
 3. And more!
 

@@ -30,7 +30,7 @@ public class PropertiesConfigBuilder {
 	 * @param url file:, classpath: or http: url
 	 * @return this builder
 	 */
-	public final PropertiesConfigBuilder append(String url) {
+	public final PropertiesConfigBuilder overrideWith(String url) {
 		readers.add(makeConfigReader(url));
 		return this;
 	}
@@ -43,7 +43,7 @@ public class PropertiesConfigBuilder {
 	 * @param properties existing Properties object to use
 	 * @return this builder
 	 */
-	public final PropertiesConfigBuilder append(Properties properties) {
+	public final PropertiesConfigBuilder overrideWith(Properties properties) {
 		readers.add(makePropertiesReader(properties));
 		return this;
 	}
@@ -55,7 +55,7 @@ public class PropertiesConfigBuilder {
 	 * 
 	 * @return this builder
 	 */	
-	public final PropertiesConfigBuilder appendSystemProperties() {
+	public final PropertiesConfigBuilder overrideWithSystemProperties() {
 		readers.add(makeSystemPropertiesReader());
 		return this;
 	}
