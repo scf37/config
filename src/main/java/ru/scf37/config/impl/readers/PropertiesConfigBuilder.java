@@ -1,6 +1,8 @@
-package ru.scf37.config.impl.prop;
+package ru.scf37.config.impl.readers;
 
 import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -78,5 +80,11 @@ public class PropertiesConfigBuilder {
 	 */
 	public final ConfigReader<Properties> build() {
 		return new PropertiesAppendingReader(readers);
+	}
+	
+	public final <T> ConfigReader<T> buildAnnotationReader(Class<T> clazz) {
+		return new AnnotationReader<T>(clazz, 
+				new PropertiesAppendingReader(readers),
+				new TextReader(readers, Charset.forName("UTF-8")));
 	}
 }

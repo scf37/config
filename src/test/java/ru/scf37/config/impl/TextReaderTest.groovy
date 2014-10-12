@@ -4,7 +4,7 @@ import java.nio.charset.Charset
 
 import org.junit.Assert
 
-import ru.scf37.config.impl.text.TextReader
+import ru.scf37.config.impl.readers.TextReader;
 import spock.lang.Specification
 
 public class TextReaderTest extends Specification {

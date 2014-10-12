@@ -5,9 +5,9 @@ apply plugin: 'maven'
 apply plugin: 'eclipse'
 
 group = 'ru.scf37.config'
-version = '1.1.0'
+version = '1.2.0'
 
-description = """config123"""
+description = """config"""
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
@@ -27,7 +27,7 @@ sourceSets {
 	test.compileClasspath += configurations.provided
 	test.runtimeClasspath += configurations.provided
 }
-eclipse.classpath.plusConfigurations += configurations.provided
+eclipse.classpath.plusConfigurations += [configurations.provided]
 
 sourceSets {
 	test.groovy.srcDirs = ['src/test/java']

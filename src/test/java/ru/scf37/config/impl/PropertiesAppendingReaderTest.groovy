@@ -1,6 +1,6 @@
 package ru.scf37.config.impl
 
-import ru.scf37.config.impl.prop.PropertiesAppendingReader
+import ru.scf37.config.impl.readers.PropertiesAppendingReader
 import spock.lang.Specification
 
 public class PropertiesAppendingReaderTest extends Specification {

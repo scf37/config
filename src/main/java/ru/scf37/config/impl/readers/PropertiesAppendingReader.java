@@ -1,4 +1,4 @@
-package ru.scf37.config.impl.prop;
+package ru.scf37.config.impl.readers;
 
 import static ru.scf37.config.impl.ConfigLog.info;
 

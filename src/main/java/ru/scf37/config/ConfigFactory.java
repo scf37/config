@@ -2,8 +2,8 @@ package ru.scf37.config;
 
 import java.util.Properties;
 
-import ru.scf37.config.impl.prop.PropertiesConfigBuilder;
-import ru.scf37.config.impl.text.TextConfigBuilder;
+import ru.scf37.config.impl.readers.PropertiesConfigBuilder;
+import ru.scf37.config.impl.readers.TextConfigBuilder;
 
 /**
  * Main entry point to Config library.
@@ -37,14 +37,12 @@ public final class ConfigFactory {
 	 */
 	public static PropertiesConfigBuilder readPropertiesFrom(Properties properties) {
 		try {
-			return PROP_BUILDER.newInstance().overrideWith(properties);
+			return new PropertiesConfigBuilder().overrideWith(properties);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
-	
-
 	/**
 	 * Factory method to read plain text configuration.
 	 * 
@@ -53,7 +51,7 @@ public final class ConfigFactory {
 	 */
 	public static TextConfigBuilder readTextFrom(String url) {
 		try {
-			return TEXT_BUILDER.newInstance().or(url);
+			return new TextConfigBuilder().or(url);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -64,8 +62,8 @@ public final class ConfigFactory {
 	
 	static {
 		try {
-			String propBuilderClass = System.getProperty("ru.scf37.config.prop_builder_class", "ru.scf37.config.impl.prop.PropertiesConfigBuilder");
-			String textBuilderClass = System.getProperty("ru.scf37.config.text_builder_class", "ru.scf37.config.impl.text.TextConfigBuilder");
+			String propBuilderClass = System.getProperty("ru.scf37.config.prop_builder_class", "ru.scf37.config.impl.readers.PropertiesConfigBuilder");
+			String textBuilderClass = System.getProperty("ru.scf37.config.text_builder_class", "ru.scf37.config.impl.readers.TextConfigBuilder");
 			
 			PROP_BUILDER = Class.forName(propBuilderClass).asSubclass(PropertiesConfigBuilder.class);
 			TEXT_BUILDER = Class.forName(textBuilderClass).asSubclass(TextConfigBuilder.class);
