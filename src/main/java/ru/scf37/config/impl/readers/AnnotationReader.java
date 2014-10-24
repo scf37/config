@@ -68,6 +68,10 @@ class AnnotationReader<T> extends AbstractConfigReader<T> {
 			}
 			
 			String value = p.getProperty(prop.value());
+			if (value != null && value.trim().isEmpty()) {
+				value = null;
+			}
+			
 			if (value == null) {
 				if (prop.mandatory()) {
 					throw new ConfigException("Unable to read mandatory property '" 
