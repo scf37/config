@@ -62,6 +62,17 @@ public class PropertiesConfigBuilder {
 		return this;
 	}
 	
+	public final PropertiesConfigBuilder overrideWithEnvironmentVariables() {
+		readers.add(makeEnvironmentVariablesReader());
+		return this;
+	}
+	
+	protected ConfigReader<InputStream> makeEnvironmentVariablesReader() {
+		Properties p = new Properties();
+		p.putAll(System.getenv());
+		return new PropertiesObjectReader(p);
+	}
+	
 	protected ConfigReader<InputStream> makeSystemPropertiesReader() {
 		return new PropertiesObjectReader(System.getProperties());
 	}
