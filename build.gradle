@@ -18,6 +18,14 @@ repositories {
      }
 }
 
+uploadArchives {
+	repositories {
+		mavenDeployer {
+			repository(url: System.getProperty('privateRepo'))
+		}
+	}
+}
+
 configurations {
 	provided
 }

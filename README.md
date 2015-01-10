@@ -7,7 +7,8 @@ Features
 ========
 
 * Allows getting configuration from multiple sources: classpath, local path, http
-* Support java properties merging.
+* Supports java properties merging.
+* Supports loading properties to java classes
 * Supports typical enterprise use-cases: common configuration, 
     configuration for specific environment, sensitive production configuration.
 * Has support for Spring, Log4j/Log4j2, web containers.
@@ -65,12 +66,29 @@ TBD. See javadoc.
 
 Installing
 ==========
+Maven:
 
-git clone https://github.com/scf37/config.git  
-cd config  
-gradle install  
+Binaries are hosted on private repository. URL: https://raw.githubusercontent.com/scf37/maven/master/
 
-No public repo yet
+```xml
+	<dependency>  
+		<groupId>ru.scf37.config</groupId>  
+		<artifactId>config</artifactId>  
+		<version>1.2.0</version>  
+	</dependency>
+```
+
+Gradle:
+```groovy
+	repositories {
+		maven {
+			url 'https://raw.githubusercontent.com/scf37/maven/master/'
+		}
+	}
+	dependencies {
+		compile 'ru.scf37.config:config:1.2.0'
+	}
+```	
 
 License
 =======
