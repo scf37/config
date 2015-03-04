@@ -15,7 +15,7 @@ import ru.scf37.config.impl.ConfigLog;
  *
  */
 public class EnvironmentNameResolver {
-	private static EnvironmentNameResolver defaultEnvironmentNameResolver = new EnvironmentNameResolver();
+	private static volatile EnvironmentNameResolver defaultEnvironmentNameResolver = new EnvironmentNameResolver();
 	
 	/**
 	 * Set default EnvironmentNameResolver instance.

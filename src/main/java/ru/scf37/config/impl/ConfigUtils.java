@@ -5,7 +5,7 @@ public final class ConfigUtils {
 	private ConfigUtils() {
 	}
 	
-	public static String formatAddress(String application, String environment, String name) {
-		return "[app="+application + ", env=" + environment + ", name=" + name + "]";
+	public static String formatAddress(String environment, String name) {
+		return "[env='" + environment + "', name='" + name + "']";
 	}
 }

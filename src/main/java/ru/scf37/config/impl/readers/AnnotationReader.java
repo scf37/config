@@ -26,9 +26,12 @@ class AnnotationReader<T> extends AbstractConfigReader<T> {
 
 
 	@Override
-	public T read(String application, String environment, String name) {
+	public T read(String environment, String name) {
+		if (name == null) {
+			throw new NullPointerException("name cannot be null");
+		}
 		try {
-			return doRead(application, environment, name);
+			return doRead(environment, name);
 		} catch (ConfigException e) {
 			throw e;
 		} catch (Exception e) {
@@ -39,7 +42,7 @@ class AnnotationReader<T> extends AbstractConfigReader<T> {
 
 
 
-	private T doRead(String application, String environment, String name) throws Exception {
+	private T doRead(String environment, String name) throws Exception {
 		T t = clazz.newInstance();
 		Map<String, Object> readerCache = new HashMap<String, Object>();
 		
@@ -53,12 +56,12 @@ class AnnotationReader<T> extends AbstractConfigReader<T> {
 			}
 			
 			if (prop == null) {
-				f.set(t, get(textReader, application, environment, res.value(), readerCache));
+				f.set(t, get(textReader, environment, res.value(), readerCache));
 				continue;
 			}
 			String realName = res == null ? name : res.value();
 			
-			Properties p = get(propReader, application, environment, realName, readerCache);
+			Properties p = get(propReader, environment, realName, readerCache);
 			if (p == null) {
 				if (prop.mandatory()) {
 					throw new ConfigException("Unable to read mandatory property '" 
@@ -134,13 +137,10 @@ class AnnotationReader<T> extends AbstractConfigReader<T> {
 
 
 	//we cache reader execution to avoid log spam for multiple invocation
-	
-	private <T2> T2 get(ConfigReader<T2> reader, String application,
+	private <T2> T2 get(ConfigReader<T2> reader,
 			String environment, String name, Map<String, Object> readerCache) {
 		
-		String key = reader.getClass() + "#" + application + "#" + environment + "#"
-				+ name + "#";
-		
+		String key = reader.getClass() + "#_@" + environment + "#_@" + name;
 				
 		@SuppressWarnings("unchecked")
 		T2 v = (T2)readerCache.get(key);
@@ -149,7 +149,7 @@ class AnnotationReader<T> extends AbstractConfigReader<T> {
 			return v; //cached value can be null
 		}
 		
-		v = reader.read(application, environment, name);
+		v = reader.read(environment, name);
 		readerCache.put(key, v);
 		
 		return v;

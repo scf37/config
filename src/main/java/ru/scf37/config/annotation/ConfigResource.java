@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * This annotation is used to specify resource from which to load configuration.
  * <p>
- * It can be used in conjuction with {@link ConfigProperty} to load specific property 
+ * It can be used in conjunction with {@link ConfigProperty} to load specific property 
  * from specific file or as-is to load text file to String field.
  * 
  * @author asm

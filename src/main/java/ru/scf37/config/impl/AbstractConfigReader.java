@@ -7,9 +7,8 @@ public abstract class AbstractConfigReader<T> implements ConfigReader<T>{
 
 	@Override
 	public T read(String name) {
-		return read(null, 
+		return read( 
 				EnvironmentNameResolver.getDefaultEnvironmentNameResolver().getEnvironmentName(), 
 				name);
 	}
-
 }

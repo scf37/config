@@ -22,11 +22,7 @@ public final class ConfigFactory {
 	 * @return builder for Properties config
 	 */
 	public static PropertiesConfigBuilder readPropertiesFrom(String url) {
-		try {
-			return PROP_BUILDER.newInstance().overrideWith(url);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+		return new PropertiesConfigBuilder().overrideWith(url);
 	}
 	
 	/**
@@ -36,11 +32,7 @@ public final class ConfigFactory {
 	 * @return builder for Properties config
 	 */
 	public static PropertiesConfigBuilder readPropertiesFrom(Properties properties) {
-		try {
-			return new PropertiesConfigBuilder().overrideWith(properties);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+		return new PropertiesConfigBuilder().overrideWith(properties);
 	}
 	
 	/**
@@ -50,26 +42,6 @@ public final class ConfigFactory {
 	 * @return builder for Text config
 	 */
 	public static TextConfigBuilder readTextFrom(String url) {
-		try {
-			return new TextConfigBuilder().or(url);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+		return new TextConfigBuilder().or(url);
 	}
-	
-	private static final Class<? extends PropertiesConfigBuilder> PROP_BUILDER;
-	private static final Class<? extends TextConfigBuilder> TEXT_BUILDER;
-	
-	static {
-		try {
-			String propBuilderClass = System.getProperty("ru.scf37.config.prop_builder_class", "ru.scf37.config.impl.readers.PropertiesConfigBuilder");
-			String textBuilderClass = System.getProperty("ru.scf37.config.text_builder_class", "ru.scf37.config.impl.readers.TextConfigBuilder");
-			
-			PROP_BUILDER = Class.forName(propBuilderClass).asSubclass(PropertiesConfigBuilder.class);
-			TEXT_BUILDER = Class.forName(textBuilderClass).asSubclass(TextConfigBuilder.class);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
 }

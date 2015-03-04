@@ -9,7 +9,7 @@ public class EnvVariablesTest extends Specification {
 		//we can't check overriding since we can't write to env map
 	when:
 		def reader = ConfigFactory.readPropertiesFrom("classpath:test").overrideWithEnvironmentVariables().build()
-		Properties p = reader.read("app", "env", "test.properties")
+		Properties p = reader.read("env", "test.properties")
 	then:
 		p.Path != null || p.PATH != null 
 	}

@@ -47,17 +47,8 @@ public class ConfigPropertyPlaceholderConfigurer extends PropertySourcesPlacehol
 	
 	private EnvironmentNameResolver environmentNameResolver = EnvironmentNameResolver.getDefaultEnvironmentNameResolver();
 	
-	private String application;
 	private String root = "classpath:";
-	/**
-	 * Application name
-	 * 
-	 * @param application application name
-	 */
-	public void setApplication(String application) {
-		this.application = application;
-	}
-
+	
 	/**
 	 * Configuration root path 
 	 * @param root root path URL
@@ -107,7 +98,7 @@ public class ConfigPropertyPlaceholderConfigurer extends PropertySourcesPlacehol
 
 		try {
 			ConfigReader<Properties> reader = ConfigFactory.readPropertiesFrom(root).build();
-			Properties p = reader.read(application, env, path);
+			Properties p = reader.read(env, path);
 			if (p == null) {
 				return null;
 			}
@@ -116,9 +107,9 @@ public class ConfigPropertyPlaceholderConfigurer extends PropertySourcesPlacehol
 			
 			return new ByteArrayResource(w.toString().getBytes(Charset.forName("UTF-8")));
 		} catch (ConfigException ex) {
-			warn("Unable to resolve environment config for " + ConfigUtils.formatAddress(application, env, path) + ", error=" + ex.getMessage());
+			warn("Unable to resolve environment config for " + ConfigUtils.formatAddress(env, path) + ", error=" + ex.getMessage());
 		} catch (IOException ex) {
-			warn("Unable to resolve environment config for " + ConfigUtils.formatAddress(application, env, path) + ", error=" + ex.getMessage());
+			warn("Unable to resolve environment config for " + ConfigUtils.formatAddress(env, path) + ", error=" + ex.getMessage());
 		}
 		return null;
 	}

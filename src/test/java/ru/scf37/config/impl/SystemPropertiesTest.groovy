@@ -22,7 +22,7 @@ public class SystemPropertiesTest extends Specification {
 	when:
 		System.setProperty("key1", "w00t")
 		def reader = ConfigFactory.readPropertiesFrom("classpath:test").overrideWithSystemProperties().build()
-		Properties p = reader.read("app", "env", "test.properties")
+		Properties p = reader.read("env", "test.properties")
 	then:
 		p.key1 == 'w00t'
 		p.key2 == '22'

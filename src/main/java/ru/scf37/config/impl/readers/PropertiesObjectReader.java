@@ -18,7 +18,10 @@ public class PropertiesObjectReader extends AbstractConfigReader<InputStream>{
 	}
 	
 	@Override
-	public InputStream read(String application, String environment, String name) {
+	public InputStream read(String environment, String name) {
+		if (name == null) {
+			throw new NullPointerException("name cannot be null");
+		}
 		try {
 			StringWriter sw = new StringWriter();
 			properties.store(sw, null);

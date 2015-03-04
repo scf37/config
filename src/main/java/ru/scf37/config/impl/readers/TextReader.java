@@ -34,32 +34,29 @@ public final class TextReader extends AbstractConfigReader<String> {
 	}
 	
 	@Override
-	public String read(String application, String environment, String name) {
+	public String read(String environment, String name) {
+		if (name == null) {
+			throw new NullPointerException("name cannot be null");
+		}
 		for (ConfigReader<InputStream> r: readers) {
-			String result = doRead(application, environment, name, r);
+			String result = doRead(environment, name, r);
 			if (result != null) {
-				info("Configuration loaded: " + ConfigUtils.formatAddress(application, environment, name));
+				info("Configuration loaded: " + ConfigUtils.formatAddress(environment, name));
 				return result;
 			}
 		}
-		info("Configuration not found: " + ConfigUtils.formatAddress(application, environment, name));
+		info("Configuration not found: " + ConfigUtils.formatAddress(environment, name));
 		return null;
 	}
 
-	private String doRead(String application, String environment,
+	private String doRead(String environment,
 			String name, ConfigReader<InputStream> r) {
 		String result;
 		
-		result = read(r.read(application, environment, name));
+		result = read(r.read(environment, name));
 		if (result != null) return result;
 		
-		result = read(r.read(application, null, name));
-		if (result != null) return result;
-		
-		result = read(r.read(application, null, name));
-		if (result != null) return result;
-		
-		result = read(r.read(null, null, name));
+		result = read(r.read(null, name));
 		return result;
 	}
 

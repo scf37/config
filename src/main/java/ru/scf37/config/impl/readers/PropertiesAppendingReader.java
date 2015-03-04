@@ -27,23 +27,23 @@ public final class PropertiesAppendingReader extends AbstractConfigReader<Proper
 	}
 	
 	@Override
-	public Properties read(String application, String environment, String name) {
+	public Properties read(String environment, String name) {
+		if (name == null) {
+			throw new NullPointerException("name cannot be null");
+		}
 		Properties props = new Properties();
 		boolean found = false;
 		for (ConfigReader<InputStream> r: readers) {
-			found |= append(props, r.read(null, null, name));
-			if (application != null) {
-				found |= append(props, r.read(application, null, name));
-			}
+			found |= append(props, r.read(null, name));
 			if (environment != null) {
-				found |= append(props, r.read(application, environment, name));
+				found |= append(props, r.read(environment, name));
 			}
 		}
 		if (found) {
-			info("Configuration loaded: " + ConfigUtils.formatAddress(application, environment, name));
+			info("Configuration loaded: " + ConfigUtils.formatAddress(environment, name));
 			return props;
 		}
-		info("Configuration not found: " + ConfigUtils.formatAddress(application, environment, name));
+		info("Configuration not found: " + ConfigUtils.formatAddress(environment, name));
 		return null;
 	}
 

@@ -36,14 +36,12 @@ public abstract class AbstractLog4jConfigurer {
 
 	/**
 	 * Configure log4j library.
-	 * 
-	 * @param app application name
 	 */
-	public void configure(String app) {
+	public void configure() {
 		String environment = environmentNameResolver.getEnvironmentName();
 		
 		for (String name: getConfigurationNames()) {
-			if (initLog4j(app, environment, name)) {
+			if (initLog4j(environment, name)) {
 				return;
 			}	
 		}
@@ -55,32 +53,32 @@ public abstract class AbstractLog4jConfigurer {
 	
 	protected abstract void initLogging(File file);
 	
-	private boolean initLog4j(String application, String environment, String name) {
+	private boolean initLog4j(String environment, String name) {
 		ConfigReader<String> reader = ConfigFactory.readTextFrom("classpath:").build(Charset.forName("UTF-8"));
 		
 		try {
-			String config = reader.read(application, environment, name);
+			String config = reader.read(environment, name);
 			if (config == null) {
 				ConfigLog.warn("Unable to resolve environment-specific path for " + 
-					ConfigUtils.formatAddress(application, environment, name));
+					ConfigUtils.formatAddress(environment, name));
 				return false;
 			}
-			initLog4j(config, name);
+			initLog4j0(config, name);
 			
 			ConfigLog.warn("Log4j initialized successfully from " + 
-					ConfigUtils.formatAddress(application, environment, name));
+					ConfigUtils.formatAddress(environment, name));
 			return true;
 		} catch (ConfigException ex) {
 			ConfigLog.warn("Unable to resolve environment-specific path for " + 
-					ConfigUtils.formatAddress(application, environment, name) + ", error: " + ex.getMessage());
+					ConfigUtils.formatAddress(environment, name) + ", error: " + ex.getMessage());
 		} catch (IOException ex) {
 			ConfigLog.warn("Unable to resolve environment-specific path for " + 
-					ConfigUtils.formatAddress(application, environment, name) + ", error: " + ex.getMessage());
+					ConfigUtils.formatAddress(environment, name) + ", error: " + ex.getMessage());
 		}
 		return false;
 	}
 	
-	private void initLog4j(String config, String suffix) throws IOException {
+	private void initLog4j0(String config, String suffix) throws IOException {
 		FileOutputStream fos = null;
 		File tempFile = null;
 		try {

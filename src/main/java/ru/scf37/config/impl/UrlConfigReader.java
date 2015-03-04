@@ -39,21 +39,21 @@ public class UrlConfigReader extends AbstractConfigReader<InputStream> {
 	}
 	
 	@Override
-	public InputStream read(String application, String environment, String name) {
-		String url = appendParameters(application, environment, name);
+	public InputStream read(String environment, String name) {
+		if (name == null) {
+			throw new NullPointerException("name cannot be null");
+		}
+		String url = appendParameters(environment, name);
 		
 		return readUrl(url);		
 	}
 
-	private String appendParameters(String application, String environment, String name) {
+	private String appendParameters(String environment, String name) {
 		String url = this.url;
-		if (application != null) {
-			url += "/" + application;
-		}
 		if (environment != null) {
 			url += "/" + environment;
 		}
-		url += "/" + (name == null ? "configuration.properties" : name);
+		url += "/" + name;
 		return url;
 	}
 
@@ -70,7 +70,7 @@ public class UrlConfigReader extends AbstractConfigReader<InputStream> {
 		}
 	}
 	/**
-	 * Opens URL. This method can be overriden, for example, to support proxies and authorization.
+	 * Opens URL.
 	 * 
 	 * @param u url to open
 	 * @return input stream or null

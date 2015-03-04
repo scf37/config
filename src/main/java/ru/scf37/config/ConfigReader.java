@@ -18,24 +18,21 @@ public interface ConfigReader<T> {
 	 * <p>
 	 * Following paths are tried (in order of decreasing priority):
 	 * <ul>
-	 * 	<li>{base}/{application}/{environment}/{name}</li>
-	 * 	<li>{base}/{application}/{name}</li>
+	 * 	<li>{base}/{environment}/{name}</li>
 	 *  <li>{base}/{name}</li>
 	 * </ul>
-	 * Any parameter can be null, in this case it is just omitted from the path.
+	 * Environment can be null, in this case it is just omitted from the path.
 	 * 
-	 * 
-	 * @param application application name
 	 * @param environment application environment
 	 * @param name configuration file name
 	 * @return read configuration or null if configuration not found
 	 * @throws ConfigException bad url format
 	 */
-	public T read(String application, String environment, String name);
+	public T read(String environment, String name);
 	
 	/**
-	 * This method is a shortcut to {@link #read(String, String, String)}.
-	 * It assumes null application name and uses default environment, which is determined by
+	 * This method is a shortcut to {@link #read(String, String)}.
+	 * It uses default environment, which is determined by
 	 * {@link EnvironmentNameResolver#getDefaultEnvironmentNameResolver()}.
 	 * 
 	 * @param name configuration file name
